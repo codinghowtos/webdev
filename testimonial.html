@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =================================== */
+        /* === CORE & SHARED STYLES ======== */
+        /* =================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: linear-gradient(yellow, black);
+            background-attachment: fixed;
+            color: #333;
+            line-height: 1.6;
+            margin-top: 0;
+            height: 100vh;
+            margin-bottom: -10vh;
+        }
+        
+        
+
+        
+        /* =================================== */
+        /* === SIDEBAR MENU STYLES ========= */
+        /* =================================== */
+        .menu-container {
+            position: fixed;
+            top: 50%;
+            left: 30px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .menu-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            background-color: #d1d8e0;
+            z-index: 1;
+        }
+
+        .icon {
+            position: relative;
+            z-index: 2;
+        }
+
+        .menubtn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .menubtn:hover {
+            transform: scale(1.15);
+            background-color: #3498db;
+        }
+        
+        .pglnk {
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menubtn i {
+            font-size: 20px;
+            color: #576574;
+            transition: color 0.2s ease;
+        }
+
+        .menubtn:hover i {
+            color: #ffffff;
+        }
+        
+        .icon::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 65px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .icon:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ======================================== */
+        /* === TESTIMONIALS PAGE SPECIFIC STYLES === */
+        /* ======================================== */
+        .testimonial-section {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 110px 40px 50px 40px; /* Top padding to avoid top-nav */
+        }
+
+        .testimonial-header {
+            text-align: center;
+            margin-bottom: 50px;
+            margin-top: -90px;
+        }
+
+        .testimonial-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .testimonial-header p {
+            font-size: 1.2rem;
+            color: #f1f1f1;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .testimonial-card img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #f1f1f1;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-quote {
+            font-size: 1rem;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+            position: relative;
+            padding: 0 15px;
+        }
+
+        .testimonial-quote::before,
+        .testimonial-quote::after {
+            font-family: 'Georgia', serif;
+            font-size: 3rem;
+            color: #e0e0e0;
+            position: absolute;
+        }
+        
+        .testimonial-quote::before {
+            content: '“';
+            top: -10px;
+            left: -10px;
+        }
+
+        .testimonial-quote::after {
+            content: '”';
+            bottom: -25px;
+            right: -10px;
+        }
+        
+        .testimonial-author {
+            margin-top: auto;
+        }
+
+        .testimonial-author h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .testimonial-author p {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .testimonial-header h1 {
+                font-size: 2.5rem;
+            }
+            .testimonial-section {
+                 padding: 90px 20px 40px 20px;
+            }
+            .icon::after {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="menu-container">
+        <div class="icon home" data-tooltip="Home">
+            <button class="menubtn">
+                <a class="pglnk" href="index.html" rel="noopener noreferrer"><i class="fa-solid fa-house-chimney"></i></a>
+            </button>
+        </div>
+        <div class="icon user" data-tooltip="About Me">
+            <button class="menubtn">
+                <a class="pglnk" href="aboutme.html" rel="noopener noreferrer"><i class="fa-solid fa-circle-user"></i></a>
+            </button>
+        </div>
+        <div class="icon briefcase" data-tooltip="Resume">
+            <button class="menubtn">
+                <a class="pglnk" href="resume.html" rel="noopener noreferrer"><i class="fas fa-briefcase"></i></a>
+            </button>
+        </div>
+        <div class="icon laptop" data-tooltip="My Projects">
+            <button class="menubtn">
+                <a class="pglnk" href="myprojects.html" rel="noopener noreferrer"><i class="fas fa-laptop-code"></i></a>
+            </button>
+        </div>
+        <div class="icon testimonial" data-tooltip="Testimonials">
+            <button class="menubtn">
+                <a class="pglnk" href="testimonial.html" target="_self" rel="noopener noreferrer"><i class="fa-solid fa-bullhorn"></i></a>
+            </button>
+        </div>
+        <div class="icon mail" data-tooltip="Contact">
+            <button class="menubtn">
+                <a class="pglnk" href="contact.html" rel="noopener noreferrer"><i class="fas fa-envelope"></i></a>
+            </button>
+        </div>
+    </div>
+
+    <main class="testimonial-section">
+        <header class="testimonial-header">
+            <h1>Testimonials</h1>
+            <p>What clients and collaborators are saying about my work.</p>
+        </header>
+
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <img src="WhatsApp Image 2024-11-22 at 19.52.05_ff00c036.jpg" alt="Jane Doe">
+                <p class="testimonial-quote">
+                    Shivam is an incredibly talented developer and designer. He transformed our vision into a beautiful, functional website that exceeded all our expectations. His attention to detail is unmatched.
+                </p>
+                <div class="testimonial-author">
+                    <h4>SHUBHAM</h4>
+                    <p></p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="" alt="KRISH">
+                <p class="testimonial-quote">
+                    Working with Shivam was a breeze. He's a great communicator, consistently met deadlines, and was always receptive to feedback. I couldn't be happier with the final product. Highly recommended!
+                </p>
+                <div class="testimonial-author">
+                    <h4>KRISH</h4>
+                    <p></p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="" alt="AMAN">
+                <p class="testimonial-quote">
+                    The brand identity Shivam created for us was phenomenal. He has a unique ability to capture the essence of a brand and translate it into stunning visuals. We've seen a significant increase in engagement since the rebrand.
+                </p>
+                <div class="testimonial-author">
+                    <h4>AMAN</h4>
+                    <p></p>
+                </div>
+            </div>
+
+            </div>
+    </main>
+
+</body>
+</html>

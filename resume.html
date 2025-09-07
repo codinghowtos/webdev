@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Resume</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =================================== */
+        /* === CORE & SHARED STYLES ======== */
+        /* =================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Using the same gradient background from your other pages */
+            background-image: linear-gradient(yellow, black);
+            background-attachment: fixed; /* Keeps gradient in place while scrolling */
+            color: #333;
+            line-height: 1.6;
+            padding: 20px; /* Adds some space on the edges */
+        }
+        
+        /* The main container for the menu (COPIED FROM YOUR CSS) */
+        .menu-container {
+            position: fixed;
+            top: 50%;
+            left: 30px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        /* The connecting line (COPIED FROM YOUR CSS) */
+        .menu-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            background-color: #d1d8e0;
+            z-index: 1;
+        }
+
+        .icon {
+            position: relative;
+            z-index: 2;
+        }
+
+        .menubtn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .menubtn:hover {
+            transform: scale(1.15);
+            background-color: #3498db;
+        }
+        
+        .pglnk {
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menubtn i {
+            font-size: 20px;
+            color: #576574;
+            transition: color 0.2s ease;
+        }
+
+        .menubtn:hover i {
+            color: #ffffff;
+        }
+        
+        .icon::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 65px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .icon:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* =================================== */
+        /* === RESUME PAGE SPECIFIC STYLES === */
+        /* =================================== */
+        .resume-container {
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .resume-header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .resume-header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: 700;
+        }
+
+        .resume-header h2 {
+            margin: 10px 0;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #ffc107; /* Yellow accent color */
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .contact-info a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            color: #ffc107;
+        }
+
+        .contact-info i {
+            margin-right: 5px;
+        }
+
+        .resume-body {
+            padding: 40px;
+        }
+
+        .resume-section {
+            margin-bottom: 30px;
+        }
+
+        .resume-section h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            border-bottom: 3px solid #ffc107; /* Yellow underline */
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .resume-item {
+            margin-bottom: 20px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .item-header h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #34495e;
+        }
+        
+        .item-header span {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .item-subheader {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .item-content ul {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .item-content ul li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 5px;
+        }
+
+        .item-content ul li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: #ffc107;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-item {
+            background-color: #ecf0f1;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .resume-container {
+                margin: 20px auto;
+                width: 95%;
+            }
+            .resume-body, .resume-header {
+                padding: 25px;
+            }
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .item-header span {
+                margin-top: 5px;
+            }
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+             /* Hide tooltips on mobile to prevent layout issues */
+            .icon::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-container">
+        <div class="icon home" data-tooltip="Home">
+            <button class="menubtn">
+                <a class="pglnk" href="index.html" rel="noopener noreferrer"><i class="fa-solid fa-house-chimney"></i></a>
+            </button>
+        </div>
+        <div class="icon user" data-tooltip="About Me">
+            <button class="menubtn">
+                <a class="pglnk" href="aboutme.html" rel="noopener noreferrer"><i class="fa-solid fa-circle-user"></i></a>
+            </button>
+        </div>
+        <div class="icon briefcase" data-tooltip="Resume">
+            <button class="menubtn">
+                <a class="pglnk" href="resume.html" target="_self" rel="noopener noreferrer"><i class="fas fa-briefcase"></i></a>
+            </button>
+        </div>
+        <div class="icon laptop" data-tooltip="My Projects">
+            <button class="menubtn">
+                <a class="pglnk" href="myprojects.html" rel="noopener noreferrer"><i class="fas fa-laptop-code"></i></a>
+            </button>
+        </div>
+        <div class="icon testimonial" data-tooltip="Testimonials">
+            <button class="menubtn">
+                <a class="pglnk" href="testimonial.html" rel="noopener noreferrer"><i class="fa-solid fa-bullhorn"></i></a>
+            </button>
+        </div>
+        <div class="icon mail" data-tooltip="Contact">
+            <button class="menubtn">
+                <a class="pglnk" href="contact.html" rel="noopener noreferrer"><i class="fas fa-envelope"></i></a>
+            </button>
+        </div>
+    </div>
+
+    <div class="resume-container">
+        <header class="resume-header">
+            <h1>SHIVAM</h1>
+            <h2>Graphic Designer & Web Developer</h2>
+            <div class="contact-info">
+                <span><a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> coadinghowtos@gmail.com</a></span>
+                <span><a href="#"><i class="fas fa-phone"></i> 8287917923</a></span>
+                <span><a href="#"><i class="fas fa-map-marker-alt"></i> New Delhi, India</a></span>
+            </div>
+        </header>
+
+        <main class="resume-body">
+
+            <section class="resume-section">
+                <h3><i class="fas fa-user-circle"></i> Professional Summary</h3>
+                <div class="resume-item">
+                    <div class="item-content">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quaerat voluptates ratione, a vero nesciunt aspernatur ab magnam nam quisquam?</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="resume-section">
+                <h3><i class="fas fa-briefcase"></i> Work Experience</h3>
+                <div class="resume-item">
+                    <div class="item-header">
+                        <h4>MY Job Title</h4>
+                        <span>Month Year - Present</span>
+                    </div>
+                    <div class="item-subheader">Lorem ipsum dolor sit.</div>
+                    <div class="item-content">
+                        <ul>
+                            <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit..</li>
+                            <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione, fuga!</li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, enim.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="resume-item">
+                    <div class="item-header">
+                        <h4>Previous Job Title</h4>
+                        <span></span>
+                    </div>
+                    <div class="item-subheader">Soon</div>
+                    <div class="item-content">
+                        <ul>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="resume-section">
+                <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                <div class="resume-item">
+                    <div class="item-header">
+                        <h4>BCA</h4>
+                        <span>soon</span>
+                    </div>
+                    <div class="item-subheader">Baad me likhunga</div>
+                    <div class="item-content">
+                        <p>Baad me likhunga</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="resume-section">
+                <h3><i class="fas fa-cogs"></i> Professional Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">HTML</div>
+                    <div class="skill-item">CSS</div>
+                    <div class="skill-item">JavaScript</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

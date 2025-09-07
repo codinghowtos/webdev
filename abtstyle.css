@@ -1,0 +1,235 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: linear-gradient(yellow,black);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* About Section Styling */
+#about {
+    width: 100%;
+}
+
+.about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Image Styling */
+.about-image {
+    flex-shrink: 0; /* Prevents the image from shrinking */
+}
+
+.about-image img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #e0e0e0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-image img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Text Content Styling */
+.about-text h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.about-text .subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+    min-height: 1.2em; /* Prevents layout shift during typing */
+}
+
+.about-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* "Read More" Functionality Styling */
+.more-text {
+    display: none;
+}
+
+#read-more-btn {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#read-more-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Typing Effect Styling */
+.typing-effect {
+    font-weight: 600;
+    color: #3498db;
+    border-right: 2px solid #7f8c8d; /* The cursor */
+    animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #7f8c8d; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px;
+    }
+
+    .about-image img {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 20px;
+    }
+
+    .about-text h2 {
+        font-size: 2rem;
+    }
+    }
+
+
+ h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #333;
+        }
+
+/* The main container for the menu */
+.menu-container {
+    position: fixed; /* Stays in the same place even when scrolling */
+    top: 50%; /* Center vertically */
+    left: 30px; /* Distance from the left edge */
+    transform: translateY(-50%); /* Adjust vertical centering */
+    display: flex;
+    flex-direction: column; /* Stack icons vertically */
+    align-items: center; /* Center icons horizontally */
+    gap: 20px; /* Space between icons */
+    z-index: 1000; /* Ensure it's on top of other content */
+}
+
+/* The connecting line - created using a pseudo-element */
+.menu-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%; /* Center of the container */
+    transform: translateX(-50%);
+    width: 2px; /* Line thickness */
+    background-color: #d1d8e0; /* Line color */
+    z-index: 1; /* Place it behind the icons */
+}
+
+/* Styling for each icon's container */
+.icon {
+    position: relative; /* Needed for z-index and tooltip positioning */
+    z-index: 2; /* Ensure icons are on top of the line */
+}
+
+/* Styling for the buttons */
+.menubtn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Makes the button circular */
+    border: none;
+    background-color: #ffffff; /* Button background */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.menubtn:hover {
+    transform: scale(1.15); /* Enlarge on hover */
+    background-color: #3498db; /* Change color on hover */
+}
+
+/* Keep the link from having default styles */
+.pglnk {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling for the Font Awesome icons */
+.menubtn i {
+    font-size: 20px;
+    color: #576574; /* Initial icon color */
+    transition: color 0.2s ease;
+}
+
+/* Change icon color on button hover */
+.menubtn:hover i {
+    color: #ffffff;
+}
+
+/* Tooltip style */
+.icon::after {
+    content: attr(data-tooltip); /* Use the data-tooltip attribute as content */
+    position: absolute;
+    left: 65px; /* Position to the right of the icon */
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap; /* Prevent text wrapping */
+    
+    /* Hide by default */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Show tooltip on hover */
+.icon:hover::after {
+    opacity: 1;
+    visibility: visible;
+}    
